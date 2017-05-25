@@ -1,0 +1,29 @@
+{
+  "name": "myscraper",
+  "version": "1.0.1",
+  "description": "Scrapes news from the economist",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karl74/myScraper.git"
+  },
+  "author": "Karl74",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karl74/myScraper/issues"
+  },
+  "homepage": "https://github.com/Karl74/myScraper#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^0.22.0",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.10.2",
+    "morgan": "^1.8.2",
+    "request": "^2.81.0"
+  }
+}
