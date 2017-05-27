@@ -21,12 +21,18 @@ app.use(
     extended: false
   })
 );
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 
 // Make public a static dir
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/economist");
+mongoose.connect("mongodb://localhost/scrapnews");
 var db = mongoose.connection;
 
 // Show any mongoose errors
