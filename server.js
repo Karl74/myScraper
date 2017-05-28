@@ -9,8 +9,11 @@ var mongoose = require("mongoose");
 var request = require("request");
 var cheerio = require("cheerio");
 
+var Note = require("./models/Note.js");
+var Article = require("./models/Article.js");
 
-var port = 3000;
+mongoose.Promise = Promise;
+
 
 var app = express();
 
@@ -19,6 +22,17 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
+mongoose.connect("mongodb://localhost/scraper");
+var db = mongoose.connection;
+
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
+
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(process.cwd() + "/public"));
