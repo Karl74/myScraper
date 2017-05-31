@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+
 var Schema = mongoose.Schema;
 
 
@@ -6,11 +7,11 @@ var ArticleSchema = new Schema({
 
   title: {
     type: String
-  },
-  // Just a string
-  body: {
-    link: String
   }
+  // Just a string
+  // body: {
+  //   link: String
+  // }
 });
 
 

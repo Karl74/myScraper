@@ -9,7 +9,7 @@
 	<body>
 		{{{ body }}}
 	</body>
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script >
 
 $(document).ready(function(){
@@ -20,22 +20,40 @@ $(document).ready(function(){
 		
 		for(var i = 0; i < 20; i++){
 			var well = $("<div>");
-			var button = $("<button>");
-			button.attr("class", "save");
-			well.attr("class", "alert alert-dismissible alert-danger");
-			well.html(data[i].title);
-			$("#scrapedArt").append(well);
+				well.attr("class", "alert alert-dismissible alert-warning");
+				well.html(data[i].title);
 			
+			var form = $("<form>");
+				form.attr({
+					class: "text-right",
+					role: "form"
+				});
+			
+			var button = $("<button>");
+				button.attr({
+					class: "btn btn-primary getArticle",
+					title: data[i].title
+				});
+				button.html("SAVE");
+			
+			form.append(button);
+			well.append(form);
+			$("#scrapedArt").append(well);
+			};
 
-			}
-		
+			$(".getArticle").on("click", function(){
+				event.preventDefault();
+				var newtitle = $(this).attr("title") 
+				console.log(newtitle);
+				$.post("/saveArticle", newtitle, function(data){
+					alert("You save an article!!!");
+				});
+			});
 	});// END OF AJAX CALL
-	
-
 
 
 }); //END OF GET READY FUNCTION
 	
-</script>
+</script> -->
 </html>
 

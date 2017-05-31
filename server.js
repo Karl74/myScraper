@@ -1,3 +1,5 @@
+// |I|- DEPENDENCIES ::::::::::::::::::::::::::::::::
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
@@ -5,13 +7,15 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 
-// Our scraping tools
+// |II|- SCRAPING TOOLS :::::::::::::::::::::::::::::
 var request = require("request");
 var cheerio = require("cheerio");
 
+// |III|- MONGOOSE DATA MODULES :::::::::::::::::::::
 var Note = require("./models/Note.js");
 var Article = require("./models/Article.js");
 
+// |II|- SET PACKAGES :::::::::::::::::::::::::::::::
 mongoose.Promise = Promise;
 
 
@@ -69,7 +73,7 @@ app.get("/scrape", function(req, res){
 			    link: link
 			  });
 		       	
-			console.log(result);
+			// console.log(result);
 		});  //end of method each
 			res.json(result);
 
@@ -79,6 +83,52 @@ app.get("/scrape", function(req, res){
 // |B|- ALL ARTICLES VIEW ::::::::::::::::::::::::::::
 app.get("/articles", function(req, res){
 	res.render("articles");
+});
+
+// |C|- SAVE AN ARTICLE ::::::::::::::::::::::::::::::
+app.post("/saveArticle", function(req, res){
+	
+	var newArticle = new Article(req.body);
+	newArticle.save(function(error, doc){
+		if (error) {
+			console.log(error);
+		} else {
+			console.log(doc);
+			res.send(doc);
+		}
+
+	});
+});
+
+// |D|-  SEND SAVED ARTICLES ::::::::::::::::::::::::::::
+
+app.get("/saved", function(req, res){
+	Article.find({}, function(error, doc){
+		if(error){
+			console.log(error);
+		} else {
+			console.log(doc);
+		res.json(doc);
+		}
+	});
+});
+
+// |E|-  RENDERPAGE WITH SAVED ARTICLES ::::::::::::::::::::::::::::
+
+app.get("/seesaved", function(req, res){
+		res.render("saved");
+});
+
+// |F|- DELETE AN ARTICLE ::::::::::::::::::::::::::::::
+app.post("/deleteArticle", function(req, res){
+	
+	var deleteThis = req.body.id;
+	console.log("delete: " +  deleteThis);
+	Article.findByIdAndRemove({"_id": deleteThis}, function(err, Article){
+		var response = "the item was deleted";
+		res.send(response);
+	});
+
 });
 
 
