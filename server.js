@@ -132,6 +132,54 @@ app.post("/deleteArticle", function(req, res){
 });
 
 
+// |G|- ADD A NOTE ::::::::::::::::::::::::::::::
+app.post("/savenote", function(req, res){
+	
+	var newNote = new Note(req.body);
+		newNote.save(function(error, doc){
+			if (error) {
+				console.log(error);
+			} else {
+				var response = "I got your note" + doc;
+				console.log(response);
+				res.send(response);
+			}
+
+		});
+});
+
+// |H|- ADD A NOTE ::::::::::::::::::::::::::::::
+
+app.get("looknotes/:artId?", function(req, res){
+	var artId = req.params.artId;
+		if(artId){
+			Note.find({"article": articleRef},function(err, Note){
+			if(err){
+				console.log(err);
+			} else{
+				console.log(Note);
+				return res.json(Note);
+			}
+		});
+	} else{
+		res.end();
+	}
+});
+
+// app.get("/looknotes", function(req, res){
+// 	var articleRef = req.body.id;
+// 	console.log(req.body.id);
+// 	console.log(articleRef); 
+// 	Note.find({"article": articleRef},function(err, Note){
+// 		if(err){
+// 			console.log(err);
+// 		} else{
+// 			console.log(Note);
+// 			res.send(Note);
+// 		}
+// 	});
+// });
+
 // |END|- LISTENER FUNCTION :::::::::::::::::::::::::::
 app.listen(3000, function(){
 	console.log("App running on port 3000!")
