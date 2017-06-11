@@ -134,7 +134,7 @@ app.post("/deleteArticle", function(req, res){
 
 // |G|- ADD A NOTE ::::::::::::::::::::::::::::::
 app.post("/savenote", function(req, res){
-	
+	console.log(req.body)
 	var newNote = new Note(req.body);
 		newNote.save(function(error, doc){
 			if (error) {
@@ -150,20 +150,18 @@ app.post("/savenote", function(req, res){
 
 // |H|- ADD A NOTE ::::::::::::::::::::::::::::::
 
-app.get("looknotes/:artId?", function(req, res){
+app.get("/looknotes/:artId", function(req, res){
 	var artId = req.params.artId;
-		if(artId){
-			Note.find({"article": articleRef},function(err, Note){
+			console.log(artId)
+			Article.findById(artId).populate("Notes").exec(function(err, Article){
 			if(err){
 				console.log(err);
 			} else{
-				console.log(Note);
-				return res.json(Note);
+				console.log(Article.note.text);
+				return res.json(Article.note.text);
 			}
 		});
-	} else{
-		res.end();
-	}
+	
 });
 
 // app.get("/looknotes", function(req, res){

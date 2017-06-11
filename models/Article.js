@@ -7,11 +7,13 @@ var ArticleSchema = new Schema({
 
   title: {
     type: String
-  }
-  // Just a string
-  // body: {
-  //   link: String
-  // }
+  },
+  
+  note: [{
+  	type: Schema.Types.ObjectId,
+  	ref: "Note"
+  }]
+  
 });
 
 
